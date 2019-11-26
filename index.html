@@ -11,104 +11,94 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="style.css">
+
+
 </head>
 
-  <body onload = "hideScreens()">
-		<div class="mdc-tab-bar" role="tablist" data-mdc-auto-init="MDCTabBar">
-		  <div class="mdc-tab-scroller">
-		    <div class="mdc-tab-scroller__scroll-area">
-		      <div class="mdc-tab-scroller__scroll-content">
-		        <button class="mdc-tab mdc-tab--active" id="#home" role="tab" aria-selected="true" tabindex="0">
-		          <span class="mdc-tab__content">
-		            <span class="mdc-tab__icon material-icons" aria-hidden="true">home</span>
-		            <span class="mdc-tab__text-label">Home</span>
-		          </span>
-		          <span class="mdc-tab-indicator mdc-tab-indicator--active">
-		            <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-		          </span>
-		          <span class="mdc-tab__ripple"></span>
-		        </button>
-						<button class="mdc-tab" id="#weather" role="tab" aria-selected="true" tabindex="0">
-		          <span class="mdc-tab__content">
-		            <span class="mdc-tab__icon material-icons" aria-hidden="true">wb_sunny</span>
-		            <span class="mdc-tab__text-label">Weather</span>
-		          </span>
-		          <span class="mdc-tab-indicator">
-		            <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-		          </span>
-		          <span class="mdc-tab__ripple"></span>
-		        </button>
-						<button class="mdc-tab" id="#mrp" role="tab" aria-selected="true" tabindex="0">
-		          <span class="mdc-tab__content">
-		            <span class="mdc-tab__icon material-icons" aria-hidden="true">photo_camera</span>
-		            <span class="mdc-tab__text-label">MRP</span>
-		          </span>
-		          <span class="mdc-tab-indicator">
-		            <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-		          </span>
-		          <span class="mdc-tab__ripple"></span>
-		        </button>
-						<button class="mdc-tab" id="#profile" role="tab" aria-selected="true" tabindex="0">
-		          <span class="mdc-tab__content">
-		            <span class="mdc-tab__icon material-icons" aria-hidden="true">account_circle</span>
-		            <span class="mdc-tab__text-label">Profile</span>
-		          </span>
-		          <span class="mdc-tab-indicator">
-		            <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-		          </span>
-		          <span class="mdc-tab__ripple"></span>
-		        </button>
-		      </div>
-		    </div>
-		  </div>
+<body onload="hideScreens()">
+
+	<!-- Tab bar -->
+	<div class="mdc-tab-bar" role="tablist" data-mdc-auto-init="MDCTabBar">
+		<div class="mdc-tab-scroller">
+			<div class="mdc-tab-scroller__scroll-area">
+				<div class="mdc-tab-scroller__scroll-content">
+					<button class="mdc-tab mdc-tab--active" id="#home" role="tab" aria-selected="true" tabindex="0">
+						<span class="mdc-tab__content">
+							<span class="mdc-tab__icon material-icons" aria-hidden="true">home</span>
+							<span class="mdc-tab__text-label">Home</span>
+						</span>
+						<span class="mdc-tab-indicator mdc-tab-indicator--active">
+							<span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+						</span>
+						<span class="mdc-tab__ripple"></span>
+					</button>
+					<button class="mdc-tab" id="#weather" role="tab" aria-selected="true" tabindex="0">
+						<span class="mdc-tab__content">
+							<span class="mdc-tab__icon material-icons" aria-hidden="true">wb_sunny</span>
+							<span class="mdc-tab__text-label">Weather</span>
+						</span>
+						<span class="mdc-tab-indicator">
+							<span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+						</span>
+						<span class="mdc-tab__ripple"></span>
+					</button>
+					<button class="mdc-tab" id="#mrp" role="tab" aria-selected="true" tabindex="0">
+						<span class="mdc-tab__content">
+							<span class="mdc-tab__icon material-icons" aria-hidden="true">photo_camera</span>
+							<span class="mdc-tab__text-label">MRP</span>
+						</span>
+						<span class="mdc-tab-indicator">
+							<span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+						</span>
+						<span class="mdc-tab__ripple"></span>
+					</button>
+					<button class="mdc-tab" id="#profile" role="tab" aria-selected="true" tabindex="0">
+						<span class="mdc-tab__content">
+							<span class="mdc-tab__icon material-icons" aria-hidden="true">account_circle</span>
+							<span class="mdc-tab__text-label">Profile</span>
+						</span>
+						<span class="mdc-tab-indicator">
+							<span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+						</span>
+						<span class="mdc-tab__ripple"></span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Home screen -->
+	<div class="content" id="home">
+		<p>HOME</p>
+	</div>
+
+	<!-- Weather screen -->
+	<div class="content" id="weather">
+
+		<div class="mdc-layout-grid">
+			<div class="mdc-layout-grid__inner">
+
+			</div>
 		</div>
 
-		<div class="content" id = "home">
-			<p>HOME</p>
-		</div>
-
-		<div class="content" id = "weather">
-			<p>WEATHER</p>
-		</div>
-
-		<div class="content" id = "mrp">
-			<p>MRP</p>
-		</div>
-
-		<div class="content" id = "profile">
-			<p>PROFILE</p>
-		</div>
-
-    <script>
-      // instantiate all components
-      window.mdc.autoInit();
-      // create a reference to it
-      const tabbar = document.querySelector('.mdc-tab-bar').MDCTabBar;
-
-			function hideScreens() {
-		    $(".content").hide();
-		  }
-
-			$(".mdc-tab").on("click", function() {
-				hideScreens();
-				var target = $(this).attr("id");
-				$(target).show();
-			});
-
-      // call a method
-      // snackbar.open();
-
-			var url = "https://api.nasa.gov/insight_weather/?feedtype=json&ver=1.0&api_key=1LuGzfFVR9LTX4tEIJTUf5flVkStXjBMA5pa5oIO";
-		  $.get(url,
-		    function(data) {
-		      $.each(data, function(i, v) {
-		        console.log(v);
-
-		      }); // end of the callback function and parameter list for $.each
-		    }); //  end of the callback function and parameter list for $.get
-
-    </script>
 
 
-  </body>
+
+
+	</div>
+
+	<div class="content" id="mrp">
+		<p>MRP</p>
+	</div>
+
+	<div class="content" id="profile">
+		<p>PROFILE</p>
+	</div>
+
+	<script src="./scripts.js"></script>
+
+
+</body>
+
 </html>
