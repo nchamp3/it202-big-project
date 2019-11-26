@@ -3,6 +3,24 @@
 }
 
 .mdc-card {
-  height: 300px;
-  width: 300px;
+  height: 350px;
+  width: 350px;
+}
+
+.mdc-card {
+  background-color: #262626;
+}
+
+.mdc-typography{
+  text-align: center;
+  color: white;
+}
+
+.demo-card__title{
+  font-size: 35px;
+  margin-bottom: 5px;
+}
+
+.demo-card__subtitle{
+  font-size: 20px;
 }
