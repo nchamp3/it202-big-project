@@ -7,6 +7,7 @@ window.mdc.autoInit();
 const tabbar = document.querySelector('.mdc-tab-bar').MDCTabBar;
 const sol_text_field = document.querySelector('.mdc-text-field').MDCTextField;
 const rover_select_field =  document.querySelector('.mdc-select').MDCSelect;
+const noPhotos_snackbar = document.querySelector('.mdc-snackbar').MDCSnackbar;
 
 const hideScreens = () => {
   $(".content").hide();
@@ -15,20 +16,32 @@ const hideScreens = () => {
 $(".mdc-tab").on("click", function() {
   hideScreens();
   var target = $(this).attr("id");
+  if(target == "#weather") {
+    getWeather();
+  }
   $(target).show();
 });
 
 
 $("#img_search_button").on("click", function(){
-
-
-  console.log(rover_select_field.value);
-
-
+  let sol = sol_text_field.value;
+  let rover = rover_select_field.value;
+  if(sol.length == 0 || rover.length == 0)
+  {
+    // alert("Please select a sol and rover.");
+    noPhotos(sol, rover, 1);
+    noPhotos_snackbar.open();
+  }
+  else {
+    // console.log("sol: " + sol);
+    // console.log("rover: " + rover);
+    getMRP(sol, rover);
+  }
 });
 
 const getWeather = () => {
   var url = "https://api.nasa.gov/insight_weather/?feedtype=json&ver=1.0&api_key=1LuGzfFVR9LTX4tEIJTUf5flVkStXjBMA5pa5oIO";
+  $('#weather_cards').html("");
   $.get(url,
     data => {
       data.sol_keys.forEach(sol => createWeatherCard(sol, data[sol]));
@@ -60,17 +73,25 @@ const getWeather = () => {
     }
   }
 
-  const getMRP = () => {
-    let url = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=430&page=1&api_key=1LuGzfFVR9LTX4tEIJTUf5flVkStXjBMA5pa5oIO";
+
+  const getMRP = (sol, rover) => {
+    let url = "https://api.nasa.gov/mars-photos/api/v1/rovers/" + rover + "/photos?sol=" + sol + "&page=1&api_key=1LuGzfFVR9LTX4tEIJTUf5flVkStXjBMA5pa5oIO";
+    $('#rover_img_cards').html("");
+    $(".mdc-snackbar__label").html("");
     $.get(url,
       function(data) {
         $.each(data, function(i, v) {
+          if(v.length == 0) {
+            noPhotos(sol, rover, 2);
+            noPhotos_snackbar.open();
+          }
           $.each(v, function(j, k) {
             createImageCard(k);
           });
         });
       });
   }
+
 
   const createImageCard = (img) => {
     $('#rover_img_cards').append("<div class=\"mdc-layout-grid__cell--span-3\">" +
@@ -82,8 +103,16 @@ const getWeather = () => {
         "</div>" +
       "</div>" +
     "</div>");
-
-
   }
-  getMRP();
+
+  const noPhotos = (sol, rover, msg) => {
+    if(msg == 1) {
+      $(".mdc-snackbar__label").append("Please select a sol and rover.");
+    }
+    else {
+      $(".mdc-snackbar__label").append("No pictures taken by " + rover + " on Sol " + sol);
+    }
+  }
+
+  // getMRP();
   // getWeather();
