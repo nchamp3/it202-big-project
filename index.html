@@ -81,6 +81,7 @@
 		</div>
 	</div>
 
+	<!-- MRP screen -->
 	<div class="content" id="mrp">
 		<div class="mdc-layout-grid">
 			<div class="mdc-layout-grid__inner">
@@ -115,13 +116,13 @@
 						<div class="mdc-select__menu mdc-menu mdc-menu-surface demo-width-class">
 							<ul class="mdc-list">
 								<li class="mdc-list-item mdc-list-item--selected" data-value="" aria-selected="true"></li>
-								<li class="mdc-list-item" data-value="rover1">
+								<li class="mdc-list-item" data-value="Curiosity">
 									Curiosity
 								</li>
-								<li class="mdc-list-item" data-value="rover2">
+								<li class="mdc-list-item" data-value="Opportunity">
 									Opportunity
 								</li>
-								<li class="mdc-list-item" data-value="rover3">
+								<li class="mdc-list-item" data-value="Spirit">
 									Spirit
 								</li>
 							</ul>
@@ -144,9 +145,16 @@
 			</div>
 		</div>
 
-
-
-
+		<!-- error message snackbar -->
+		<div class="mdc-snackbar" data-mdc-auto-init="MDCSnackbar">
+			<div class="mdc-snackbar__surface">
+				<div class="mdc-snackbar__label" role="status" aria-live="polite">
+				</div>
+				<div class="mdc-snackbar__actions">
+					<button type="button" class="mdc-button mdc-snackbar__action">Ok</button>
+				</div>
+			</div>
+		</div>
 
 	</div>
 
