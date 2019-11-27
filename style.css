@@ -2,12 +2,13 @@
   margin-top: 20px;
 }
 
-.mdc-card {
-  height: 350px;
-  width: 350px;
+.mdc-tab-bar{
+  color: black;
 }
 
 .mdc-card {
+  height: 350px;
+  width: 350px;
   background-color: #262626;
 }
 
@@ -23,4 +24,24 @@
 
 .demo-card__subtitle{
   font-size: 20px;
+}
+
+#sol_input, #rover_input{
+  margin-left: 250px;
+}
+
+#mrp_heading{
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 50px;
+}
+
+.mdc-image-list__item{
+  margin-right: 20px;
+}
+
+#img_search_button{
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
