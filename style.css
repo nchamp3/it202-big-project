@@ -1,8 +1,8 @@
-.content{
+.content {
   margin-top: 20px;
 }
 
-.mdc-tab-bar{
+.mdc-tab-bar {
   color: black;
 }
 
@@ -12,36 +12,57 @@
   background-color: #262626;
 }
 
-.mdc-typography{
+.mdc-typography {
   text-align: center;
   color: white;
 }
 
-.demo-card__title{
+.demo-card__title {
   font-size: 35px;
   margin-bottom: 5px;
 }
 
-.demo-card__subtitle{
+.demo-card__subtitle {
   font-size: 20px;
 }
 
-#sol_input, #rover_input{
+#sol_input, #rover_input {
   margin-left: 250px;
 }
 
-#mrp_heading{
+#mrp_heading {
   text-align: center;
   margin-bottom: 30px;
   font-size: 50px;
 }
 
-.mdc-image-list__item{
+.mdc-image-list__item {
   margin-right: 20px;
 }
 
-#img_search_button{
+#img_search_button {
   text-align: center;
   margin-top: 20px;
   margin-bottom: 30px;
+}
+
+.image-cropper {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+
+  top: 50%;
+  left: 50%;
+  margin-top: 80px;
+  margin-left: -120px;
+}
+
+.profile-pic {
+  display: inline;
+  margin: 0 auto;
+  margin-left: -25%; //centers the image
+  height: 100%;
+  width: auto;
 }

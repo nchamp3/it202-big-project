@@ -86,7 +86,7 @@
 		<div class="mdc-layout-grid">
 			<div class="mdc-layout-grid__inner">
 				<div class="mdc-layout-grid__cell--span-12" id="mrp_heading">
-					What pics??
+					Mars Rover Photos
 				</div>
 
 				<!-- sol input -->
@@ -158,8 +158,89 @@
 
 	</div>
 
+	<!-- User profile screen -->
 	<div class="content" id="profile">
-		<p>PROFILE</p>
+
+		<div class="image-cropper">
+			<img src="./pics/m3.jpg" alt="avatar" class="profile-pic">
+		</div>
+
+
+
+
+		<video id="player" width=420 height=340 controls autoplay></video>
+		<canvas id="canvas" width=420 height=340></canvas>
+
+		<button id="capture">Capture</button>
+		<button id="save">Save</button>
+
+		<script>
+			const player = document.getElementById('player');
+			const canvas = document.getElementById('canvas');
+			const context = canvas.getContext('2d');
+
+			const captureButton = document.getElementById('capture');
+			const saveButton = document.getElementById('save');
+
+			let imgURL;
+
+			player.style.display = "none";
+			saveButton.style.display = "none";
+			canvas.style.display = "none";
+
+			$('#capture').html("Take a picture!");
+
+			const constraints = {
+				video: true,
+			};
+
+			captureButton.addEventListener('click', () => {
+
+				if (captureButton.innerHTML == "Take a picture!") {
+					attachStream();
+					player.style.display = "block";
+					canvas.style.display = "none";
+					saveButton.style.display = "none";
+					$('#capture').html("Capture");
+				} else if (captureButton.innerHTML == "Capture") {
+					// Draw the video frame to the canvas.
+					context.drawImage(player, 0, 0, canvas.width, canvas.height);
+					canvas.style.display = "block";
+
+					// Stop all video streams.
+					player.srcObject.getVideoTracks().forEach(track => track.stop());
+
+					player.style.display = "none";
+					$('#capture').html("Take a picture!");
+					saveButton.style.display = "block";
+				}
+			});
+
+			saveButton.addEventListener('click', () => {
+						getBlob().then(savePic);
+						canvas.style.display = "none";
+						saveButton.style.display = "none";
+					});
+
+					const getBlob = () => {
+						return new Promise((res, rej) => {
+							canvas.toBlob(res, 'image/jpeg'); // request a Blob from the canvas
+						});
+					}
+
+					const savePic = (blob) => {
+						imgURL = URL.createObjectURL(blob);
+						$(".profile-pic").attr("src", imgURL);
+					}
+
+					// Attach the video stream to the video element and autoplay.
+					const attachStream = () => {
+						navigator.mediaDevices.getUserMedia(constraints)
+							.then((stream) => {
+								player.srcObject = stream;
+							});
+					}
+		</script>
 	</div>
 
 	<script src="./scripts.js"></script>
