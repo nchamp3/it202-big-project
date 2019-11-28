@@ -56,7 +56,7 @@
   top: 50%;
   left: 50%;
   margin-top: 80px;
-  margin-left: -120px;
+  margin-left: -150px;
 }
 
 .profile-pic {
@@ -65,4 +65,19 @@
   margin-left: -25%; //centers the image
   height: 100%;
   width: auto;
+}
+
+#first_name, #last_name, #edit {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#player, #canvas {
+  margin-top: -550px;
+}
+
+#capture, #save {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
