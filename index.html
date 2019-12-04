@@ -6,17 +6,19 @@
 	<meta name="viewport" content="width=device-width">
 	<title>repl.it</title>
 	<link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
-	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js">
-	</script>
+	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="sw.js"></script>
 	<link rel="stylesheet" href="style.css">
-
+	<link rel="manifest" href="manifest.json">
+	<!-- Include Dexie -->
+	<script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
 
 </head>
 
-<body onload="hideScreens()">
+<body onload="onLoad()">
 
 	<!-- Tab bar -->
 	<div class="mdc-tab-bar" role="tablist" data-mdc-auto-init="MDCTabBar">
@@ -70,7 +72,22 @@
 
 	<!-- Home screen -->
 	<div class="content" id="home">
-		<p>HOME</p>
+		<div class="mdc-layout-grid">
+			<div class="mdc-layout-grid__inner">
+
+				<div class="mdc-layout-grid__cell--span-12" id="mrp_heading">
+					What's it like on Mars?
+				</div>
+
+				<div class="mdc-layout-grid__cell--span-12" id="mars_home">
+					<img src = "./pics/mars_home.png">
+				</div>
+
+				<div class="mdc-layout-grid__cell--span-12" id="mrp_heading">
+					Click the tabs to learn more!
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<!-- Weather screen -->
@@ -168,10 +185,10 @@
 		<div class="mdc-layout-grid">
 			<div class="mdc-layout-grid__inner">
 
-				<!-- sol input -->
+				<!-- first name input -->
 				<div class="mdc-layout-grid__cell--span-12" id="first_name">
-					<div class="mdc-text-field mdc-text-field--outlined" data-mdc-auto-init="MDCTextField">
-						<input class="mdc-text-field__input" id="text-field-hero-input">
+					<div class="mdc-text-field mdc-text-field--outlined" data-mdc-auto-init="MDCTextField" id="first_name_text_field">
+						<input class="mdc-text-field__input" id="first_name_text_input">
 						<div class="mdc-notched-outline">
 							<div class="mdc-notched-outline__leading"></div>
 							<div class="mdc-notched-outline__notch">
@@ -182,9 +199,10 @@
 					</div>
 				</div>
 
+				<!-- last name input -->
 				<div class="mdc-layout-grid__cell--span-12" id="last_name">
-					<div class="mdc-text-field mdc-text-field--outlined" data-mdc-auto-init="MDCTextField">
-						<input class="mdc-text-field__input" id="text-field-hero-input">
+					<div class="mdc-text-field mdc-text-field--outlined" data-mdc-auto-init="MDCTextField" id="last_name_text_field">
+						<input class="mdc-text-field__input" id="last_name_text_input">
 						<div class="mdc-notched-outline">
 							<div class="mdc-notched-outline__leading"></div>
 							<div class="mdc-notched-outline__notch">
@@ -195,6 +213,7 @@
 					</div>
 				</div>
 
+				<!-- edit button -->
 				<div class="mdc-layout-grid__cell--span-12" id="edit">
 					<button class="mdc-button mdc-button--raised" id="edit_button">
 						<span class="mdc-button__ripple"></span>Edit
@@ -204,6 +223,7 @@
 			</div>
 		</div>
 
+		<!-- save success snackbar -->
 		<div class="mdc-snackbar" data-mdc-auto-init="MDCSnackbar" id="sbar">
 			<div class="mdc-snackbar__surface">
 				<div class="mdc-snackbar__label" role="status" aria-live="polite">
@@ -213,10 +233,6 @@
 				</div>
 			</div>
 		</div>
-
-
-
-
 
 
 		<video id="player" width=420 height=340 controls autoplay></video>
@@ -231,100 +247,12 @@
 		</button>
 
 		<script>
-			const player = document.getElementById('player');
-			const canvas = document.getElementById('canvas');
-			const context = canvas.getContext('2d');
-
-			const captureButton = document.getElementById('capture');
-			const saveButton = document.getElementById('save');
-			const editButton = document.getElementById('edit_button');
-
-			let imgURL;
-
-			player.style.display = "none";
-			captureButton.style.display = "none";
-			saveButton.style.display = "none";
-			canvas.style.display = "none";
-
-			$('#capture').html("Take a picture!");
-
-			window.mdc.autoInit();
-			const snackbar = document.querySelector('#sbar').MDCSnackbar;
-
-			const constraints = {
-				video: true,
-			};
-
-			editButton.addEventListener('click', () => {
-				$(".mdc-snackbar__label").html("");
-				// console.log(editButton.innerHTML);
-				if(editButton.innerHTML.includes("Edit")) {
-					$('#edit_button').html("<span class=\"mdc-button__ripple\"></span>Done");
-					captureButton.style.display = "block";
-				}
-				else if(editButton.innerHTML.includes("Done")) {
-					$('#edit_button').html("<span class=\"mdc-button__ripple\"></span>Edit");
-					captureButton.style.display = "none";
-					$(".mdc-snackbar__label").append("Saved!");
-			    snackbar.open();
-				}
-
-
-
-
-
-			});
-
-			captureButton.addEventListener('click', () => {
-
-				if (captureButton.innerHTML.includes("Take a picture!")) {
-					attachStream();
-					player.style.display = "block";
-					canvas.style.display = "none";
-					saveButton.style.display = "none";
-					$('#capture').html("<span class=\"mdc-button__ripple\"></span>Capture");
-				} else if (captureButton.innerHTML.includes("Capture")) {
-					// Draw the video frame to the canvas.
-					context.drawImage(player, 0, 0, canvas.width, canvas.height);
-					canvas.style.display = "block";
-
-					// Stop all video streams.
-					player.srcObject.getVideoTracks().forEach(track => track.stop());
-
-					player.style.display = "none";
-					$('#capture').html("<span class=\"mdc-button__ripple\"></span>Take a picture!");
-					saveButton.style.display = "block";
-				}
-			});
-
-			saveButton.addEventListener('click', () => {
-						getBlob().then(savePic);
-						canvas.style.display = "none";
-						saveButton.style.display = "none";
-					});
-
-					const getBlob = () => {
-						return new Promise((res, rej) => {
-							canvas.toBlob(res, 'image/jpeg'); // request a Blob from the canvas
-						});
-					}
-
-					const savePic = (blob) => {
-						imgURL = URL.createObjectURL(blob);
-						$(".profile-pic").attr("src", imgURL);
-					}
-
-					// Attach the video stream to the video element and autoplay.
-					const attachStream = () => {
-						navigator.mediaDevices.getUserMedia(constraints)
-							.then((stream) => {
-								player.srcObject = stream;
-							});
-					}
 
 		</script>
 	</div>
 
+
+	<script src="./profileScript.js"></script>
 	<script src="./scripts.js"></script>
 
 
