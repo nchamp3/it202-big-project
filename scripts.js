@@ -13,11 +13,19 @@ const hideScreens = () => {
   $(".content").hide();
 }
 
+const onLoad = () => {
+  hideScreens();
+  $("#home").show();
+}
+
 $(".mdc-tab").on("click", function() {
   hideScreens();
   var target = $(this).attr("id");
   if(target == "#weather") {
     getWeather();
+  }
+  else if(target == "#profile") {
+    loadUser();
   }
   $(target).show();
 });
